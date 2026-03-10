@@ -90,12 +90,10 @@ class Quote{
     // Create quote
     public function create(){
         // Create query
-        $query = 'INSERT INTO ' . 
-            $this->table . ' 
-        SET
-            quote = :quote,
-            author_id = :author_id,
-            category_id = :category_id';
+        $query = 'INSERT INTO ' . $this->table . '
+        (quote, author_id, category_id)
+        VALUES
+        (:quote, :author_id, :category_id)';
 
         // Author query
         $authorQuery = 'SELECT id FROM authors WHERE id = :author_id';

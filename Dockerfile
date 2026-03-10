@@ -45,7 +45,6 @@ FROM php:8.2-apache
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 RUN docker-php-ext-install pdo pdo_mysql
-
 # Copy app files from the app directory.
 COPY . /var/www/html
 

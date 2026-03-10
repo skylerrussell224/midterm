@@ -1,13 +1,14 @@
 <?php
-    header('Access-Control-Allow_Origin: *');
-    header('Content-Type: application/json');
-    $method = $_SERVER['REQUEST_METHOD'];
+header('Access-Control-Allow-Origin: *'); // allow all origins
+header('Content-Type: application/json');
 
-    if ($method === 'OPTIONS'){
-        header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-        header('Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With');
-        exit();
-    }
+$method = $_SERVER['REQUEST_METHOD'];
+
+if ($method === 'OPTIONS') {
+    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+    header('Access-Control-Allow-Headers: Origin, Accept, Content-Type, X-Requested-With, Authorization');
+    exit(0); // stop further processing
+}
 
     switch($method){
         case 'GET':

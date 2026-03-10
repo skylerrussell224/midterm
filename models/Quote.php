@@ -24,17 +24,17 @@ class Quote{
         $query = 'SELECT 
     quotes.id,
     quotes.quote,
-    authors.author AS authorName,
-    categories.category AS categoryName
+    authors.author AS "authorName",
+    categories.category AS "categoryName"
     FROM quotes
     INNER JOIN authors 
         ON quotes.author_id = authors.id
     INNER JOIN categories 
         ON quotes.category_id = categories.id
     WHERE
-        (:author_id IS NULL OR quotes.author_id = :author_id)
+        (:author_id::int IS NULL OR quotes.author_id = :author_id)
     AND
-        (:category_id IS NULL OR quotes.category_id = :category_id)';
+        (:category_id::int IS NULL OR quotes.category_id = :category_id)';
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);

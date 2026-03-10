@@ -19,7 +19,7 @@ $num = $result->rowcount();
 if($num > 0){
     // Author array
     $author_arr = array();
-    $author_arr['data'] = array();
+    $author_arr = array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -30,7 +30,7 @@ if($num > 0){
         );
 
         // Push to "data"
-        array_push($author_arr['data'], $author_item);
+        $author_arr[]= $author_item;
     }
     echo json_encode($author_arr);
 } else {

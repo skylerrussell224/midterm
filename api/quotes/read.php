@@ -23,7 +23,7 @@ $num = $result->rowcount();
 if($num > 0){
     // Quote array
     $quote_arr = array();
-    $quote_arr['data']= array();
+    $quote_arr= array();
 
     while($row = $result->fetch(PDO::FETCH_ASSOC)){
         extract($row);
@@ -36,7 +36,7 @@ if($num > 0){
         );
 
         // Push to "data"
-        array_push($quote_arr['data'], $quote_item);
+        $quote_arr[]= $quote_item;
     }
     echo json_encode($quote_arr);
 } else {

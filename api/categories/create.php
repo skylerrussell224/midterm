@@ -24,6 +24,8 @@ if(!isset($data->category) || empty($data->category)){
 $category->category = $data->category;
 
 // Create category
+$result = $category->create();
+
 if ($result === true) {
     echo json_encode(array(
         'id' => $category->id,

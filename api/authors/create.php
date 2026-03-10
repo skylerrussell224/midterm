@@ -24,6 +24,8 @@ if(!isset($data->author) || empty($data->author)){
 $author->author = $data->author;
 
 // Create author
+$result = $author->create();
+
 if ($result === true) {
     echo json_encode(array(
         'id' => $author->id,

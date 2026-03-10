@@ -31,10 +31,13 @@ $quote->category_id = $data->category_id;
 $result = $quote->create();
 
 if ($result === true) {
-    echo json_encode(
-        array('message' => 'Quote Created')
-    );
-} 
+    echo json_encode(array(
+        'id' => $quote->id,
+        'quote' => $quote->quote,
+        'author_id' => $quote->author_id,
+        'category_id' => $quote->category_id
+    ));
+}
 elseif (is_array($result)) {
     echo json_encode($result);
 } 

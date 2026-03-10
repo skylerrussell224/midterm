@@ -16,31 +16,26 @@ $quote->category_id = $_GET['category_id'] ?? null;
 // quote read query
 $result = $quote->read();
 
-// Get row count
-$num = $result->rowcount();
+// Quote array
+$quote_arr = array();
+$quote_arr= array();
 
-// Check if any quotes
-if($num > 0){
-    // Quote array
-    $quote_arr = array();
-    $quote_arr= array();
+while($row = $result->fetch(PDO::FETCH_ASSOC)){
+    extract($row);
 
-    while($row = $result->fetch(PDO::FETCH_ASSOC)){
-        extract($row);
+    $quote_item = array(
+        'id' => $id,
+        'quote' => $quote,
+        'author' => $authorName,
+        'category' => $categoryName
+    );
 
-        $quote_item = array(
-            'id' => $id,
-            'quote' => $quote,
-            'author' => $authorName,
-            'category' => $categoryName
-        );
-
-        // Push to "data"
-        $quote_arr[]= $quote_item;
-    }
+    // Push to "data"
+    $quote_arr[]= $quote_item;
+}
+if(count($quote_arr) > 0){
     echo json_encode($quote_arr);
 } else {
-    // No quotes
     echo json_encode(
         array('message' => 'No Quotes Found')
     );

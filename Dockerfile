@@ -44,7 +44,9 @@ FROM php:8.2-apache
 # https://github.com/docker-library/docs/tree/master/php#configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && \
+    apt-get install -y libpq-dev && \
+    docker-php-ext-install pdo_pgsql pgsql
 # Copy app files from the app directory.
 COPY . /var/www/html
 

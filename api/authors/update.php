@@ -29,9 +29,10 @@ $author->author = $data->author;
 $result = $author->update();
 
 if ($result === true) {
-    echo json_encode(
-        array('message' => 'Author Updated')
-    );
+    echo json_encode(array(
+        'id' => $author->id,
+        'author' => $author->author
+    ));
 }
 elseif (is_array($result)) {
     echo json_encode($result);

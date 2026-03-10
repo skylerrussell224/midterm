@@ -29,9 +29,10 @@ $category->category = $data->category;
 $result = $category->update();
 
 if ($result === true) {
-    echo json_encode(
-        array('message' => 'Category Updated')
-    );
+    echo json_encode(array(
+        'id' => $category->id,
+        'category' => $category->category
+    ));
 }
 elseif (is_array($result)) {
     echo json_encode($result);

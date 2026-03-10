@@ -24,11 +24,8 @@ if($quote->quote != null){
         'author' => $quote->authorName,
         'category' => $quote->categoryName
     );
-
     echo json_encode($quote_arr);
-
-} else {
-
+    } else {
     echo json_encode(
         array('message' => 'No Quotes Found')
     );

@@ -22,19 +22,19 @@ class Quote{
     public function read() {
         // Create query
         $query = 'SELECT 
-        quotes.id,
-        quotes.quote,
-        authors.author AS authorName,
-        categories.category AS categoryName
-        FROM quotes
-        INNER JOIN authors 
-            ON quotes.author_id = authors.id
-        INNER JOIN categories 
-            ON quotes.category_id = categories.id
-        WHERE 
-            quotes.author_id = COALESCE(:author_id, quotes.author_id)
-        AND
-            quotes.category_id = COALESCE(:category_id, quotes.category_id)';
+    quotes.id,
+    quotes.quote,
+    authors.author AS authorName,
+    categories.category AS categoryName
+    FROM quotes
+    INNER JOIN authors 
+        ON quotes.author_id = authors.id
+    INNER JOIN categories 
+        ON quotes.category_id = categories.id
+    WHERE
+        (:author_id IS NULL OR quotes.author_id = :author_id)
+    AND
+        (:category_id IS NULL OR quotes.category_id = :category_id)';
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
@@ -147,9 +147,15 @@ class Quote{
             author_id = :author_id,
             category_id = :category_id
         WHERE id = :id';
+        // Author query
+        $authorQuery = 'SELECT id FROM authors WHERE id = :author_id';
+        // Category query
+        $categoryQuery = 'SELECT id FROM categories WHERE id = :category_id';
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
+        $authorStmt = $this->conn->prepare($authorQuery);
+        $categoryStmt = $this->conn->prepare($categoryQuery);
 
        // Clean data
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -163,6 +169,18 @@ class Quote{
         $stmt->bindParam(':quote', $this->quote);
         $stmt->bindParam(':author_id', $this->author_id);
         $stmt->bindParam(':category_id', $this->category_id);
+        $authorStmt->bindParam(':author_id', $this->author_id);
+        $categoryStmt->bindParam(':category_id', $this->category_id);
+
+        $authorStmt->execute();
+        if($authorStmt->rowCount() == 0){
+            return array('message' => 'author_id Not Found');
+        }
+
+        $categoryStmt->execute();
+        if($categoryStmt->rowCount() == 0){
+            return array('message' => 'category_id Not Found');
+        }
 
         // Execute query
         if($stmt->execute()){

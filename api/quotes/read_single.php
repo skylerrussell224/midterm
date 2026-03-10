@@ -18,11 +18,11 @@ $quote->read_single();
 // Check if quote exists
 if($quote->quote != null){
 
-    $quote_item = array(
-    'id' => $row['id'],
-    'quote' => $row['quote'],
-    'author' => $row['authorName'],
-    'category' => $row['categoryName']
+    $quote_arr = array(
+        'id' => $quote->id,
+        'quote' => $quote->quote,
+        'author' => $quote->authorName,
+        'category' => $quote->categoryName
     );
 
     echo json_encode($quote_arr);

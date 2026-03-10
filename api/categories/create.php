@@ -24,11 +24,16 @@ if(!isset($data->category) || empty($data->category)){
 $category->category = $data->category;
 
 // Create category
-if ($category->create()) {
-    echo json_encode(
-        array('message' => 'Category Created')
-    );
-} else {
+if ($result === true) {
+    echo json_encode(array(
+        'id' => $category->id,
+        'category' => $category->category
+    ));
+}
+elseif (is_array($result)) {
+    echo json_encode($result);
+} 
+else {
     echo json_encode(
         array('message' => 'Category Not Created')
     );

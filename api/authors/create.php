@@ -24,11 +24,16 @@ if(!isset($data->author) || empty($data->author)){
 $author->author = $data->author;
 
 // Create author
-if ($author->create()) {
-    echo json_encode(
-        array('message' => 'Author Created')
-    );
-} else {
+if ($result === true) {
+    echo json_encode(array(
+        'id' => $author->id,
+        'author' => $author->author
+    ));
+}
+elseif (is_array($result)) {
+    echo json_encode($result);
+} 
+else {
     echo json_encode(
         array('message' => 'Author Not Created')
     );

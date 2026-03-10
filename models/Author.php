@@ -70,9 +70,9 @@ class Author{
     public function create(){
         // Create query
         $query = 'INSERT INTO ' . 
-            $this->table . '
-        SET
-            author = :author';
+            $this->table . ' (author)
+        VALUES
+            (:author)';
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);

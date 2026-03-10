@@ -42,6 +42,8 @@ class Quote{
         // Bind parameters
         $stmt->bindValue(':author_id', $this->author_id);
         $stmt->bindValue(':category_id', $this->category_id);
+        $stmt->bindValue(':authorName', $this->authorName);
+        $stmt->bindValue(':categoryName', $this->categoryName);
 
         // Execute query
         $stmt->execute();

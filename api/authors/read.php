@@ -13,7 +13,7 @@ $author = new Author($db);
 $result = $author->read();
 
 // Get row count
-$num = $result->rowcount();
+$num = $result->rowCount();
 
 // Check if any authors
 if($num > 0){
